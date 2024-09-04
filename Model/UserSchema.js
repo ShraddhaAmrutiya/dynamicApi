@@ -27,12 +27,33 @@ const userSchema = new mongoose.Schema({
   groups: [{ type:String, ref: "Group" }],
 });
 
+
+// Pre-save hook to check superadmin constraints
+userSchema.pre("save", async function (next) {
+  if (this.isNew) {
+    if (this.role === "superadmin") {
+      
+      const existingSuperAdmin = await this.constructor.findOne({ role: "superadmin" });
+      if (existingSuperAdmin) {
+        return next(new Error('Superadmin already exists.'));
+      }
+    }
+    if (this.role === "admin") {
+      return next(new Error('Admin creation is not allowed.'));
+    }
+  }
+  next();
+});
+
+
+///hash password
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
+//compare pasword
 userSchema.methods.matchPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };

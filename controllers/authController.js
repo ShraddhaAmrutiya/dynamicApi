@@ -58,10 +58,10 @@ const refresh = (req, res) => {
 
   if (!refreshToken) return res.status(401).json({ message: 'Refresh token required' });
 
-  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET,{ expiresIn: '15m' }, (err, decoded) => {
+  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err) return res.status(403).json({ message: 'Invalid refresh token' });
 
-    const accessToken = jwt.sign({ id: decoded.id }, ACCESS_TOKEN_SECRET);
+    const accessToken = jwt.sign({ id: decoded.id }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
     res.status(200).json({ accessToken });
   });
 };

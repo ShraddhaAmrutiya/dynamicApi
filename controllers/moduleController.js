@@ -4,6 +4,10 @@ const createModule = async (req, res) => {
   const { name, description } = req.body;
   
   try {
+    const existingModule = await Module.findOne({ name });
+    if (existingModule) {
+      return res.status(400).json({ error: 'Module already exists' });
+    }
     const module = new Module({ name, description });
     await module.save();
     res.status(201).json(module);
