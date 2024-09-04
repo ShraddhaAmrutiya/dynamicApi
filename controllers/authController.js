@@ -2,39 +2,34 @@ const User = require('../Model/UserSchema');
 const jwt = require('jsonwebtoken');
 const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
-
 const registerUser = async (req, res) => {
-  const { username, password, role} = req.body; 
+  const { username, password, role } = req.body;
 
   if (!username || !password) {
     return res.status(400).send({ message: "Fill the required fields." });
   }
 
-  // console.log(username, "000000");
-
   try {
     // Check if user already exists
-    let user = await User.findOne({ username }); 
+    let user = await User.findOne({ username });
     if (user) return res.status(400).json({ message: 'User already exists' });
 
-    // console.log(user, "1111111");
-    ////it gives null 1111111 bcz there is no existing user
-
     // Create new user and save
-    const newuser = new User({ username, password, role });
-    await newuser.save();
+    const newUser = new User({ username, password, role });
+    await newUser.save();
 
     res.status(201).json({
       message: 'User registered successfully',
-      _id: newuser._id, 
-      username: newuser.username, 
-      role: newuser.role, 
+      _id: newUser._id,
+      username: newUser.username
+      // role: newUser.role,
     });
   } catch (err) {
-    console.error(err); 
+    console.error('Server error:', err);
     res.status(500).send({ message: 'Server error', error: err.message });
   }
 };
+
 
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
@@ -63,7 +58,7 @@ const refresh = (req, res) => {
 
   if (!refreshToken) return res.status(401).json({ message: 'Refresh token required' });
 
-  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded) => {
+  jwt.verify(refreshToken, REFRESH_TOKEN_SECRET,{ expiresIn: '15m' }, (err, decoded) => {
     if (err) return res.status(403).json({ message: 'Invalid refresh token' });
 
     const accessToken = jwt.sign({ id: decoded.id }, ACCESS_TOKEN_SECRET);

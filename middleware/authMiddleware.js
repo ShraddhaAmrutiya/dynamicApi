@@ -1,9 +1,10 @@
 const User = require("../Model/UserSchema");
 const jwt = require("jsonwebtoken");
 
+
 const authMiddleware = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
-  // console.log('User model:', User);
+  
 
   if (!token) {
     return res.status(401).json({ message: "No token provided" });
@@ -16,12 +17,11 @@ const authMiddleware = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    req.user = user; // Attach user to request object
+    req.user = user; 
     next();
   } catch (error) {
-    console.error("Token verification error:", error); // Debugging log
+    console.error("Token verification error:", error); 
     res.status(403).json({ message: "Invalid token" });
   }
 };
-
 module.exports = authMiddleware;

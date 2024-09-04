@@ -16,13 +16,14 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: [true, 'Password is required'], 
     minlength: [6, 'Password must be at least 6 characters long']},
-  role: {
-    type: String,
-    enum: ["superadmin", "admin", "user"],
-    default: "user",
-     message: '{VALUE} is not a valid role',
-    index:true
-  },
+    role: {
+      type: String,
+      enum: ["superadmin", "admin", "user"],
+      default: "user",
+      message: '{VALUE} is not a valid role',
+      index: true
+    }
+    ,
   groups: [{ type:String, ref: "Group" }],
 });
 
