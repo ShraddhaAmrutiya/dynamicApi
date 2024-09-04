@@ -1,0 +1,965 @@
+{
+	"info": {
+		"_postman_id": "8e67d3bf-4b75-470c-a8e1-c54769ffd814",
+		"name": "dynamicApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36506590"
+	},
+	"item": [
+		{
+			"name": "superadmin",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"shraddha\",\r\n\"password\":\"shraddha123\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"shraddha\",\r\n\"password\":\"shraddha123\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc1MCwiZXhwIjoxNzI2MDQ1NTUwfQ.aO_sh91Z5h8_Evw1qKisxk5WuuUivUVdcD4wAv5nIRc\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module management",
+			"item": [
+				{
+					"name": "create new module",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"add to cart\",\r\n\"description\":\"This is add to cart\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/modules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"modules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all modules",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/modules/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"modules",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get module by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/modules/1455df15-76a8-4cf7-bb99-c00e54d45164",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"modules",
+								"1455df15-76a8-4cf7-bb99-c00e54d45164"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update module by id Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"add_to_cart(updated)\",\r\n\"description\":\"This is add to cart module\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/modules/1455df15-76a8-4cf7-bb99-c00e54d45164",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"modules",
+								"1455df15-76a8-4cf7-bb99-c00e54d45164"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/modules/1455df15-76a8-4cf7-bb99-c00e54d45164",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"modules",
+								"1455df15-76a8-4cf7-bb99-c00e54d45164"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "permission module",
+			"item": [
+				{
+					"name": "create permission",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"permission for delete\",\r\n\"description\":\"This permission for delete module\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list all permission",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"module_delete\",\r\n\"description\":\"This permission is about delete module\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/permissions/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"permissions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list  permission by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"module_delete\",\r\n\"description\":\"This permission is about delete module\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/permissions/05ecb678-3427-497d-a765-d9df7ab1657d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"permissions",
+								"05ecb678-3427-497d-a765-d9df7ab1657d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update permission",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"description\":\"This permission is about add /create module\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/permissions/05ecb678-3427-497d-a765-d9df7ab1657d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"permissions",
+								"05ecb678-3427-497d-a765-d9df7ab1657d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete permission",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"module_delete\",\r\n\"description\":\"This permission is about delete module\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/permissions/14e43631-8d83-4fc1-8a0a-45a0c885d835",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"permissions",
+								"14e43631-8d83-4fc1-8a0a-45a0c885d835"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign permission to module",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"permissionIds\":[\"05ecb678-3427-497d-a765-d9df7ab1657d\",\"35651b9e-4392-46c4-aded-504f64c66275\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/permissions/modules/7e100920-af69-4c45-a7d6-b371b4ede9fe/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"permissions",
+								"modules",
+								"7e100920-af69-4c45-a7d6-b371b4ede9fe",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get permissions of module",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"permissionIds\":[\"05ecb678-3427-497d-a765-d9df7ab1657d\",\"35651b9e-4392-46c4-aded-504f64c66275\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/permissions/modules/7e100920-af69-4c45-a7d6-b371b4ede9fe/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"permissions",
+								"modules",
+								"7e100920-af69-4c45-a7d6-b371b4ede9fe",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "group management",
+			"item": [
+				{
+					"name": "create group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"General User Group\",\r\n\"description\":\"This is General User group.\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/groups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list groups",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/groups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get group by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"General User Group\",\r\n\"description\":\"This is General User group.\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/groups/8bd9d415-5911-42d1-9dbb-7027df850ae4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"groups",
+								"8bd9d415-5911-42d1-9dbb-7027df850ae4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete group by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"General User Group\",\r\n\"description\":\"This is General User group.\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/groups/8bd9d415-5911-42d1-9dbb-7027df850ae4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"groups",
+								"8bd9d415-5911-42d1-9dbb-7027df850ae4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "group permission",
+			"item": [
+				{
+					"name": "assign group to module permission",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"modulePermissionid\":[\"839029ca-4472-426b-83ef-3f6057cdde1a\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/groups/afcb80c1-0179-4f2d-b8b0-c25835c319e8/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"groups",
+								"afcb80c1-0179-4f2d-b8b0-c25835c319e8",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user management",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"General User Group\",\r\n\"description\":\"This is General User group.\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"role\":\"admin\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/update/3a04dbb3-6015-4729-a42a-ea4a3f41f6dc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"update",
+								"3a04dbb3-6015-4729-a42a-ea4a3f41f6dc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"General User Group\",\r\n\"description\":\"This is General User group.\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/delete/575486a8-3141-42e2-9143-f3c7b48a904c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"delete",
+								"575486a8-3141-42e2-9143-f3c7b48a904c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a user to a group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"groupIds\":[\"afcb80c1-0179-4f2d-b8b0-c25835c319e8\",\"e84ddb2f-d2fc-4718-b3f4-fbf1787e5fb8\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/3a04dbb3-6015-4729-a42a-ea4a3f41f6dc/groups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"3a04dbb3-6015-4729-a42a-ea4a3f41f6dc",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user from group",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Berear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMGI3M2QxLTQxM2UtNGZhZi1iMmYwLWJlMTk4NTU0ZjY4YiIsImlhdCI6MTcyNTQ0MDc3OX0.4rCSFv_tdkYE8DdqGFDjMpWomEG95NrGMGHXBltjMoc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"groupIds\":[\"afcb80c1-0179-4f2d-b8b0-c25835c319e8\",\"e84ddb2f-d2fc-4718-b3f4-fbf1787e5fb8\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/3a04dbb3-6015-4729-a42a-ea4a3f41f6dc/groups/afcb80c1-0179-4f2d-b8b0-c25835c319e8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"3a04dbb3-6015-4729-a42a-ea4a3f41f6dc",
+								"groups",
+								"afcb80c1-0179-4f2d-b8b0-c25835c319e8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
