@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(error => console.error(error));
 
-// Middleware and Routes
+
 const checkSuperadmin = async () => {
   try {
     const superadmin = await User.findOne({ role: 'superadmin' });

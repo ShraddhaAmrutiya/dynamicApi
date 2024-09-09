@@ -2,6 +2,7 @@ const User = require('../Model/UserSchema');
 const jwt = require('jsonwebtoken');
 const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
+//register user
 const registerUser = async (req, res) => {
   const { username, password, role } = req.body;
 
@@ -30,7 +31,7 @@ const registerUser = async (req, res) => {
   }
 };
 
-
+//user login
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
   
@@ -52,7 +53,7 @@ const loginUser = async (req, res) => {
   
   
 };
-
+//refresh token
 const refresh = (req, res) => {
   const { refreshToken } = req.body;
 
@@ -66,7 +67,7 @@ const refresh = (req, res) => {
   });
 };
 
-
+// list user
 const readedUser= async(req,res)=>{
   try {
       const user= await User.find();
@@ -75,7 +76,7 @@ const readedUser= async(req,res)=>{
       res.status(500).send(error);
   }
 };
-
+//user update
 const updateUser = async (req, res) => {
   try {
     const updateU = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -87,7 +88,7 @@ const updateUser = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
-
+//delete user
 const deleteUser = async (req, res) => {
   try {
     const deleteU = await User.findByIdAndDelete(req.params.id);

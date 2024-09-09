@@ -2,6 +2,7 @@ const Permission = require('../Model/permissionSchema');
 const Module = require('../Model/ModuleSchema');
 const ModulePermission=require('../Model/modulePermission')
 
+// create permission
 const createPermission = async (req, res) => {
   const { name, description } = req.body;
 
@@ -14,6 +15,7 @@ const createPermission = async (req, res) => {
   }
 };
 
+///list permission
 const listPermissions = async (req, res) => {
   try {
     const permissions = await Permission.find();
@@ -23,6 +25,7 @@ const listPermissions = async (req, res) => {
   }
 };
 
+//list permission by id
 const getPermission = async (req, res) => {
   const { id } = req.params;
 
@@ -36,6 +39,7 @@ const getPermission = async (req, res) => {
   }
 };
 
+////update permission
 const updatePermission = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
@@ -50,6 +54,7 @@ const updatePermission = async (req, res) => {
   }
 };
 
+///delete permission
 const deletePermission = async (req, res) => {
   const { id } = req.params;
 
@@ -63,30 +68,8 @@ const deletePermission = async (req, res) => {
   }
 };
 
-// const assignPermissionsToModule = async (req, res) => {
-//   const { moduleId } = req.params;
-//   const { permissionIds } = req.body;
 
-//   try {
-//     // Ensure module exists
-//     const module = await Module.findById(moduleId);
-//     if (!module) return res.status(404).json({ message: 'Module not found' });
-
-//     // Add new permissions
-//     const modulePermissions = {
-//       moduleId,
-//       permissions: permissionIds
-//     };
-
-//     await ModulePermission.create(modulePermissions);
-
-//     res.status(200).json({ message: 'Permissions assigned to module' });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-// List permissions for a module
-
+///assign permission to module
 const assignPermissionsToModule = async (req, res) => {
   const { moduleId } = req.params;
   const { permissionIds } = req.body;
@@ -114,7 +97,7 @@ const assignPermissionsToModule = async (req, res) => {
   }
 };
 
-
+//list permission of modules by module id
 const listPermissionsForModule = async (req, res) => {
   const { moduleId } = req.params;
 
@@ -131,35 +114,6 @@ const listPermissionsForModule = async (req, res) => {
   }
 };
 
-/// assign User to group
-const checkUserPermission = async (req, res) => {
-  const { userId, requiredPermission } = req.params;
-
-  try {
-    // Find user and their groups
-    const user = await User.findById(userId).populate('groups');
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Get all permissions for the user's groups
-    const groupPermissions = await GroupPermission.find({
-      groupId: { $in: user.groups.map(group => group._id) }
-    }).populate('permissions');
-
-    // Flatten permissions and check if the required permission exists
-    const permissions = groupPermissions.flatMap(groupPerm => groupPerm.permissions);
-    const hasPermission = permissions.some(perm => perm.name === requiredPermission);
-
-    if (hasPermission) {
-      res.status(200).json({ message: 'User has the required permission' });
-    } else {
-      res.status(403).json({ message: 'User does not have the required permission' });
-    }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
 
 module.exports = {
@@ -169,6 +123,6 @@ module.exports = {
   updatePermission,
   deletePermission,
   assignPermissionsToModule,
-  listPermissionsForModule,
-  checkUserPermission
+  listPermissionsForModule
+  
 };

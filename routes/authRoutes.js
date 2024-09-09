@@ -6,13 +6,21 @@ const router = express.Router();
 const ensureSuperadmin=require('../middleware/ensureSuperadmin.js')
 const authorize = require('../middleware/permissionMiddleware');
 
-
-
-router.post('/login',authController.loginUser);
-router.post('/refresh',authController.refresh);
+//register auth
 router.post('/register',authMiddleware, ensureSuperadmin, authorize('create'),authController.registerUser);
+//login
+router.post('/login',authController.loginUser);
+
+//genrate refresh token
+router.post('/refresh',authController.refresh);
+
+//get all user
 router.get('/', authMiddleware,authorize('read'),authController.readedUser);
+
+//update user by id
 router.put('/update/:id',authMiddleware,authorize('read'), authController.updateUser);
+
+//delete user
 router.delete('/delete/:id', authMiddleware,authorize('delete'),authController.deleteUser);
 
 module.exports = router;

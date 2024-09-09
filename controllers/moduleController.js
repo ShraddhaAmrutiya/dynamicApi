@@ -1,5 +1,6 @@
 const Module = require('../Model/ModuleSchema');
 
+// create module
 const createModule = async (req, res) => {
   const { name, description } = req.body;
   
@@ -16,6 +17,7 @@ const createModule = async (req, res) => {
   }
 };
 
+//list module
 const listModules = async (req, res) => {
   try {
     const modules = await Module.find();
@@ -25,6 +27,7 @@ const listModules = async (req, res) => {
   }
 };
 
+//list module by id
 const getModule = async (req, res) => {
   const { id } = req.params;
   
@@ -38,6 +41,7 @@ const getModule = async (req, res) => {
   }
 };
 
+//updates module
 const updateModule = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
@@ -52,6 +56,8 @@ const updateModule = async (req, res) => {
   }
 };
 
+
+//delete module
 const deleteModule = async (req, res) => {
   const { id } = req.params;
   

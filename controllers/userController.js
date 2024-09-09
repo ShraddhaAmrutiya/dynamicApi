@@ -1,59 +1,10 @@
 const User = require('../Model/UserSchema');
 const Group = require('../Model/GroupSchema');
 
-// const addUserToGroup = async (req, res) => {
-//   const { userId } = req.params;
-//   const { groupId } = req.body;
-
-//   try {
-//     const user = await User.findById(userId);
-//     if (!user) return res.status(404).json({ message: 'User not found' });
-
-//     const group = await Group.findById(groupId);
-//     if (!group) return res.status(404).json({ message: 'Group not found' });
-
-//     if (user.groups.includes(groupId)) return res.status(400).json({ message: 'User already in group' });
-
-//     user.groups.push(groupId);
-//     await user.save();
-
-//     res.status(200).json(user);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-// const addUserToGroup = async (req, res) => {
-//   const { userId } = req.params; // Extract userId from params
-//   const { groupId } = req.body; // Extract groupId from request body
-
-//   try {
-//     // Find user and group by ID
-//     const user = await User.findById(userId);
-//     const group = await Group.findById(groupId);
-
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     if (!group) {
-//       return res.status(404).json({ message: 'Group not found' });
-//     }
-
-//     if (!user.groups.includes(groupId)) {
-//       user.groups.push(groupId);
-//       await user.save();
-//       return res.status(200).json({ message: 'User added to group successfully' });
-//     } else {
-//       return res.status(400).json({ message: 'User is already in this group' });
-//     }
-//   } catch (error) {
-//     return res.status(500).json({ message: 'Server error', error: error.message });
-//   }
-// };
+// add usert to group
 const addUserToGroup = async (req, res) => {
   const { userId } = req.params;
-  const { groupIds } = req.body; // Expecting groupIds to be an array
+  const { groupIds } = req.body; 
 
   try {
     const user = await User.findById(userId);
@@ -85,6 +36,7 @@ const addUserToGroup = async (req, res) => {
   }
 };
 
+// remove user from group
 const removeUserFromGroup = async (req, res) => {
   const { userId, groupId } = req.params;
 
@@ -92,9 +44,10 @@ const removeUserFromGroup = async (req, res) => {
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
+     ///chack if the user is in the group
     if (!user.groups.includes(groupId)) return res.status(400).json({ message: 'User not in group' });
-
-    user.groups = user.groups.filter(group => group !== groupId);
+    //
+    user.groups = user.groups.filter(group => group.toString !== groupId);
     await user.save();
 
     res.status(200).json(user);

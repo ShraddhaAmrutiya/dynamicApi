@@ -9,6 +9,7 @@ const modulePermission = require('../Model/modulePermission');
 //   res.status(201).json(groupPermission);
 // }
 
+//assign permission to group
 const assignPermissionsToGroup = async (req, res) => {
   const { groupId } = req.params;
   const { modulePermissionid } = req.body;
@@ -22,7 +23,7 @@ const assignPermissionsToGroup = async (req, res) => {
     // Find or create a GroupPermission document and update permissions
     const updatedGroup = await GroupPermission.findOneAndUpdate(
       { groupId },
-      { $set: { modulePermissionid } }, // Ensure you're updating the correct field
+      { $set: { modulePermissionid } }, 
       { new: true, upsert: true }  // Create a new document if it does not exist
     );
 
@@ -36,21 +37,7 @@ const assignPermissionsToGroup = async (req, res) => {
   }
 };
 
-
-// // List permissions for a group
-// const listPermissionsForGroup = async (req, res) => {
-//   const { groupId } = req.params;
-
-//   try {
-//     const groupPermissions = await GroupPermission.find({ groupId }).populate('permissions');
-//     res.status(200).json(groupPermissions);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-
-
+//list assigned permission of group
 const listPermissionsForGroup = async (req, res) => {
   const { groupId } = req.params;
 

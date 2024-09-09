@@ -1,21 +1,6 @@
 const Group = require('../Model/GroupSchema');
 
-// const createGroup = async (req, res) => {
-//   const { name, description } = req.body;
-//   const groupExists = await Group.findOne({ name });
-//   if (groupExists) {
-//     return res.status(400).json({ message: "Group already exists" });
-//   }
-//   try {
-//     const group = new Group({ name, description });
-//     await group.save();
-//     res.status(201).json(group);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-
+//create group
 const createGroup = async (req, res) => {
   const { name, description } = req.body;
   try {
@@ -31,6 +16,7 @@ const createGroup = async (req, res) => {
   }
 };
 
+//read group/ get all group
 const listGroups = async (req, res) => {
   try {
     const groups = await Group.find();
@@ -39,7 +25,7 @@ const listGroups = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
+// get group by id
 const getGroup = async (req, res) => {
   const { id } = req.params;
 
@@ -52,7 +38,7 @@ const getGroup = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
+//update group 
 const updateGroup = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
@@ -66,7 +52,7 @@ const updateGroup = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
+//delete group
 const deleteGroup = async (req, res) => {
   const { id } = req.params;
 
@@ -79,12 +65,13 @@ const deleteGroup = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+//delete group
 const deleteAllGroups = async (req, res) => {
   try {
-    // Delete all groups
-    const result = await Group.deleteMany({});
     
-    // Check how many documents were deleted
+    const result = await Group.deleteMany({});
+ 
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: 'No groups found to delete' });
     }
