@@ -2,12 +2,7 @@ const GroupPermission = require('../Model/groupPermission');
 const Group = require('../Model/GroupSchema');
 const modulePermission = require('../Model/modulePermission');
 
-// const assignPermission=async(req,res)=>{
-//   const permissions =req.body;
-//   const groupPermission=new GroupPermission({groupId:req.params.groupId,permissions});
-//   await groupPermission.save();
-//   res.status(201).json(groupPermission);
-// }
+
 
 //assign permission to group
 const assignPermissionsToGroup = async (req, res) => {
@@ -31,7 +26,7 @@ const assignPermissionsToGroup = async (req, res) => {
       return res.status(404).json({ message: 'GroupPermission not found or created' });
     }
 
-    res.status(200).json(updatedGroup);
+    res.status(200).json({message:"module permission assigned to group  ",updatedGroup});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

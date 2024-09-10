@@ -5,10 +5,10 @@ const groupController = require('../controllers/groupController');
 const authMiddleware = require('../middleware/authMiddleware');
 const authorize = require('../middleware/permissionMiddleware');
 router.use(authMiddleware);
-const ensureSuperadmin=require('../middleware/ensureSuperadmin.js')
+// const ensureSuperadmin=require('../middleware/ensureSuperadmin.js')
 
-//create group
-router.post('/',ensureSuperadmin,authorize('create') ,groupController.createGroup);
+//create group 
+router.post('/',authorize('create') ,groupController.createGroup);
 
 //get group/read
 router.get('/',authorize('read'), groupController.listGroups);

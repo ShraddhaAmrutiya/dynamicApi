@@ -6,7 +6,7 @@ const {assignPermissionsToGroup,
 const authMiddleware = require('../middleware/authMiddleware');
 const authorize = require('../middleware/permissionMiddleware');
 router.use(authMiddleware)
-// Assign permissions to a group
+// Assign permissions to a group(by:modulePermissionid)
 router.post('/:groupId/permissions',authorize('update'),assignPermissionsToGroup);
 
 // List permissions for a group

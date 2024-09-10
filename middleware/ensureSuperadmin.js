@@ -11,7 +11,7 @@ const ensureSuperadmin = async (req, res, next) => {
 
     // Check if the user has superadmin privileges
     const user = await User.findById(req.user.id);
-    if (!user || user.role !== 'superadmin') {
+    if ( user.role !== 'superadmin') {
       return res.status(403).json({ error: 'Access denied' });
     }
 

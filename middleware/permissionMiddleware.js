@@ -3,16 +3,6 @@ const User = require('../Model/UserSchema');
 const GroupPermission = require('../Model/groupPermission');
 const rolePermissions = require('../rolePermissions');
 
-// const permissionMiddleware = (requiredPermission) => {
-//     return (req, res, next) => {
-//         const userRole = req.user.role; // Assuming user role is part of the JWT payload
-
-//         if (!userRole || !rolePermissions[userRole].includes(requiredPermission)) {
-//             return res.status(403).json({ message: 'Access denied' });
-//         }
-//         next();
-//     };
-// };
 
 
 const permissionMiddleware = (requiredPermission) => async (req, res, next) => {
@@ -20,10 +10,13 @@ const permissionMiddleware = (requiredPermission) => async (req, res, next) => {
       const userRole = req.user.role; 
       console.log('User Role:', userRole); 
   
-      // Check if the user is a superadmin
-      if (userRole === 'superadmin') {
-        return next(); // Superadmin has access to everything
-      }
+      ///// Check if the user is a superadmin
+      //////if you assign all permissions to superadmin in rolePermission you can skip this 
+      ///// incase you forgot assign the permission/ for double check  => you can use this 
+      
+      // if (userRole === 'superadmin') {
+      //   return next(); // Superadmin has access to everything
+      // }
   
       // Role-based permissions check
       if (rolePermissions[userRole] && rolePermissions[userRole].includes(requiredPermission)) {

@@ -6,7 +6,7 @@ const {  createPermission,
     deletePermission,
     assignPermissionsToModule,
     listPermissionsForModule ,
-    // checkUserPermission 
+    removePermissionsFromModule
 } = require('../controllers/permissionController');
 const authMiddleware  = require('../middleware/authMiddleware');
 const authorize =require('../middleware/permissionMiddleware.js')
@@ -27,6 +27,8 @@ router.post('/modules/:moduleId/permissions',authorize('update') ,assignPermissi
 
 // List permissions for a module
 router.get('/modules/:moduleId/permissions',authorize('read'),listPermissionsForModule);
+//remove permission from module
+router.delete('/modules/:moduleId/permissions',authorize('update'),removePermissionsFromModule);
 
 
 

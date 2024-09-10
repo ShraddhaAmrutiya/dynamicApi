@@ -114,6 +114,35 @@ const listPermissionsForModule = async (req, res) => {
   }
 };
 
+// Remove permissions from module
+const removePermissionsFromModule = async (req, res) => {
+  const { moduleId } = req.params;
+  const { permissionIds } = req.body;
+
+  if (!permissionIds || !Array.isArray(permissionIds) || permissionIds.length === 0) {
+    return res.status(400).json({ error: 'permissionIds should be a non-empty array.' });
+  }
+
+  try {
+    // Find the module permissions
+    let modulePermission = await ModulePermission.findOne({ moduleId });
+
+    if (!modulePermission) {
+      return res.status(404).json({ message: 'Module permissions not found' });
+    }
+
+    // Remove the specified permissions from the module
+    modulePermission.permissions = modulePermission.permissions.filter(
+      (permission) => !permissionIds.includes(permission.toString())
+    );
+
+    await modulePermission.save();
+
+    res.status(200).json({ message: 'Permissions removed from module', updatedPermissions: modulePermission.permissions });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 
 module.exports = {
@@ -123,6 +152,7 @@ module.exports = {
   updatePermission,
   deletePermission,
   assignPermissionsToModule,
-  listPermissionsForModule
+  listPermissionsForModule,
+  removePermissionsFromModule
   
 };
