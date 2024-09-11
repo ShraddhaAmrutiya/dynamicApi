@@ -9,7 +9,7 @@ const groupRoutes = require('./routes/groupRoutes');
 const groupPermissionRoutes = require('./routes/groupPermissionRoutes');
 const userRoutes = require('./routes/userRoutes');
 const User = require('./Model/UserSchema'); 
-
+const ModulePermissionRout=require('./routes/modulePermission')
 const app = express();
 app.use(express.json());
 app.use(morgan('combined'));
@@ -31,6 +31,7 @@ const checkSuperadmin = async () => {
     app.use('/auth', authRoutes);
     app.use('/modules', moduleRoutes);
     app.use('/permissions', permissionRoutes);
+    app.use('/', ModulePermissionRout);
     app.use('/groups', groupRoutes);
     app.use('/users', userRoutes);
     app.use('/groups', groupPermissionRoutes);
