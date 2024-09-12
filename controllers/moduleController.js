@@ -1,6 +1,5 @@
 const Module = require('../Model/ModuleSchema');
 
-// create module
 const createModule = async (req, res) => {
   const { name, description } = req.body;
   
@@ -16,18 +15,31 @@ const createModule = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-//list module
 const listModules = async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+
   try {
-    const modules = await Module.find();
-    res.status(200).json(modules);
+    const pageNumber = Math.max(Number(page), 1);
+    const limitNumber = Math.max(Number(limit), 1);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    const modules = await Module.find().skip(skip).limit(limitNumber);
+    const totalModules = await Module.countDocuments();
+    const totalPages = Math.ceil(totalModules / limitNumber);
+
+    res.status(200).json({
+      modules,
+      page: pageNumber,
+      limit: limitNumber,
+      totalPages,
+      totalModules
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-//list module by id
+
 const getModule = async (req, res) => {
   const { id } = req.params;
   
@@ -41,7 +53,6 @@ const getModule = async (req, res) => {
   }
 };
 
-//updates module
 const updateModule = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
@@ -57,7 +68,6 @@ const updateModule = async (req, res) => {
 };
 
 
-//delete module
 const deleteModule = async (req, res) => {
   const { id } = req.params;
   

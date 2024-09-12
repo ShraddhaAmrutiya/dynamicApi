@@ -4,22 +4,19 @@ const modulePermission = require('../Model/modulePermission');
 
 
 
-//assign permission to group
 const assignPermissionsToGroup = async (req, res) => {
   const { groupId } = req.params;
   const { modulePermissionid } = req.body;
 
-  // Validate that modulePermissionid is provided and is an array
   if (!modulePermissionid || !Array.isArray(modulePermissionid) || modulePermissionid.length === 0) {
     return res.status(400).json({ error: 'Permissions should be a non-empty array.' });
   }
 
   try {
-    // Find or create a GroupPermission document and update permissions
     const updatedGroup = await GroupPermission.findOneAndUpdate(
       { groupId },
       { $set: { modulePermissionid } }, 
-      { new: true, upsert: true }  // Create a new document if it does not exist
+      { new: true, upsert: true }  
     );
 
     if (!updatedGroup) {
@@ -31,34 +28,42 @@ const assignPermissionsToGroup = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-//list assigned permission of group
 const listPermissionsForGroup = async (req, res) => {
   const { groupId } = req.params;
-
-  console.log(`Searching for groupId: ${groupId}`);
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 10;
 
   try {
-    // Fetch group permissions for the specified groupId
     const groupPermissions = await GroupPermission.find({ groupId })
-      .populate('modulePermissionid','name') // Populate permissions field
-      .populate('groupId', 'name'); // Optionally populate group details
+      .populate('modulePermissionid')
+      .populate('groupId', 'name')
+      .skip((page - 1) * limit)
+      .limit(limit);
 
-    console.log(`Found groupPermissions:`, groupPermissions);
+    const totalItems = await GroupPermission.countDocuments({ groupId });
+    const totalPages = Math.ceil(totalItems / limit);
 
     if (groupPermissions.length === 0) {
       return res.status(404).json({ message: 'No permissions found for this group' });
     }
 
-    res.status(200).json(groupPermissions);
+    res.status(200).json({
+      data: groupPermissions,
+      pagination: {
+        totalItems,
+        totalPages,
+        currentPage: page,
+        pageSize: limit
+      }
+    });
   } catch (err) {
-    console.error(err); 
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 };
 
 
-// Remove a specific permission from a group
+
 const removePermissionFromGroup = async (req, res) => {
   const { groupId, modulePermissionid } = req.params;
 

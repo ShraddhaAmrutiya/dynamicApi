@@ -1,7 +1,5 @@
 const User = require("../Model/UserSchema");
 const Group = require("../Model/GroupSchema");
-
-// add user to group
 const addUserToGroup = async (req, res) => {
   const { userId } = req.params;
   const { groupIds } = req.body;
@@ -12,21 +10,21 @@ const addUserToGroup = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Validate that groupIds is an array
     if (!Array.isArray(groupIds) || groupIds.length === 0) {
       return res
         .status(400)
         .json({ message: "groupIds should be a non-empty array" });
     }
 
-    // Find and validate all groups
     const groups = await Group.find({ _id: { $in: groupIds } });
-    const groupIdsInDb = groups.map((group) => group._id.toString());
 
-    // Add only those groupIds which are valid and not already included
+    // Use forEach to populate a Set
+    const groupIdsInDb = new Set();
+    groups.forEach(group => groupIdsInDb.add(group._id.toString()));
+
     const newGroupIds = groupIds.filter(
       (groupId) =>
-        !user.groups.includes(groupId) && groupIdsInDb.includes(groupId)
+        !user.groups.includes(groupId) && groupIdsInDb.has(groupId)
     );
 
     if (newGroupIds.length > 0) {
@@ -53,7 +51,7 @@ const addUserToGroup = async (req, res) => {
   }
 };
 
-// remove user from group
+
 const removeUserFromGroup = async (req, res) => {
   const { userId, groupId } = req.params;
 
@@ -61,13 +59,8 @@ const removeUserFromGroup = async (req, res) => {
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    ///chack if the user is in the group
     if (!user.groups.includes(groupId))
       return res.status(400).json({ message: "User not in group" });
-    //// remove user from group
-    ////user.groups.filter(...): This creates a new array of groups by excluding the group with the ID groupId.
-    //// group.toString() !== groupId: Converts each group ID to a string and compares it to groupId.
-    //// Only include the groups that do not match groupId.
     user.groups = user.groups.filter((group) => group.toString() !== groupId);
     await user.save();
 

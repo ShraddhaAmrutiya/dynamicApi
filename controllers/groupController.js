@@ -1,6 +1,5 @@
 const Group = require('../Model/GroupSchema');
 
-//create group
 const createGroup = async (req, res) => {
   const { name, description } = req.body;
   try {
@@ -15,17 +14,30 @@ const createGroup = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-//read group/ get all group
 const listGroups = async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+
   try {
-    const groups = await Group.find();
-    res.status(200).json(groups);
+    const pageNumber = Math.max(Number(page), 1);
+    const limitNumber = Math.max(Number(limit), 1);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    const groups = await Group.find().skip(skip).limit(limitNumber);
+    const totalGroups = await Group.countDocuments();
+    const totalPages = Math.ceil(totalGroups / limitNumber);
+
+    res.status(200).json({
+      groups,
+      page: pageNumber,
+      limit: limitNumber,
+      totalPages,
+      totalGroups
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-// get group by id
+
 const getGroup = async (req, res) => {
   const { id } = req.params;
 
@@ -38,7 +50,6 @@ const getGroup = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-//update group 
 const updateGroup = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
@@ -52,7 +63,6 @@ const updateGroup = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-//delete group
 const deleteGroup = async (req, res) => {
   const { id } = req.params;
 
@@ -66,7 +76,6 @@ const deleteGroup = async (req, res) => {
   }
 };
 
-//delete group
 const deleteAllGroups = async (req, res) => {
   try {
     

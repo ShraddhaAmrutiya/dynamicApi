@@ -2,7 +2,6 @@ const User = require('../Model/UserSchema');
 const jwt = require('jsonwebtoken');
 const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
-//register user
 const registerUser = async (req, res) => {
   const { username, password,role } = req.body;
 
@@ -15,11 +14,9 @@ const registerUser = async (req, res) => {
   
 
   try {
-    // Check if user already exists
     let user = await User.findOne({ username });
     if (user) return res.status(400).json({ message: 'User already exists' });
 
-    // Create new user and save
     const newUser = new User({ username, password });
     await newUser.save();
 
@@ -27,7 +24,6 @@ const registerUser = async (req, res) => {
       message: 'User registered successfully',
       _id: newUser._id,
       username: newUser.username
-      // role: newUser.role,
     });
   } catch (err) {
     console.error('Server error:', err);
@@ -35,7 +31,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-//user login
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
   
@@ -49,7 +44,7 @@ const loginUser = async (req, res) => {
     const accessToken = jwt.sign({ id: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
     const refreshToken = jwt.sign({ id: user.id }, REFRESH_TOKEN_SECRET, { expiresIn: '15m' });
 
-    res.status(200).json({ accessToken, refreshToken });
+    res.status(200).json({ message:"user login successfully.",accessToken, refreshToken });
   } catch (err) {
     console.error(err); 
     res.status(500).json({ error: err.message });
@@ -57,7 +52,6 @@ const loginUser = async (req, res) => {
   
   
 };
-//refresh token
 const refresh = (req, res) => {
   const { refreshToken } = req.body;
 
@@ -71,30 +65,34 @@ const refresh = (req, res) => {
   });
 };
 
-// list user
-const readedUser= async(req,res)=>{
+
+const readedUser = async (req, res) => {
   try {
-      const user= await User.find();
-      res.json(user)
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const [users, totalUsers] = await Promise.all([
+      User.find().select('_id username').skip(skip).limit(limit),
+      User.countDocuments()
+    ]);
+
+    res.status(200).json({
+       users,
+      pagination: {
+        currentPage: page,
+        pageSize: limit,
+        totalItems: totalUsers,
+        totalPages: Math.ceil(totalUsers / limit)
+      }
+    });
   } catch (error) {
-      res.status(500).send(error);
+    res.status(500).json({ message: error.message });
   }
 };
-//user update
-// const updateUser = async (req, res) => {
-//   try {
-//     const updateU = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//     if (!updateU) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-//     return res.status(200).json(updateU);
-//   } catch (error) {
-//     return res.status(400).json({ message: error.message });
-//   }
-// };
 
-//add roles that can update for example superadmin update user and update,
-// admin can update user but not assign superaddmin role & do not change themselves 
+
+
 const updateUser = async (req, res) => {
   const { role } = req.body;
   const currentUserId = req.user.id;
@@ -102,68 +100,58 @@ const updateUser = async (req, res) => {
   const { id } = req.params;
 
   try {
-    // Prevent admins from updating themselves
     if (currentUserRole === "admin" && currentUserId === id) {
       return res.status(403).json({ message: "Admins cannot update their own information." });
     }
 
-    // Prevent superadmins from changing their own role
     if (currentUserRole === "superadmin" && currentUserId === id && role) {
       return res.status(403).json({ message: "Superadmins cannot change their own role." });
     }
 
-    // Find the target user (the one being updated)
     const userToUpdate = await User.findById(id);
     if (!userToUpdate) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Prevent role changes to 'superadmin'
     if (role === "superadmin") {
       return res.status(403).json({ message: "No user can be assigned the role of superadmin." });
     }
 
-    // Prevent role changes for admin users
     if (currentUserRole === "admin") {
-      // Admins can only promote to "admin", but not "superadmin"
       if (role === "superadmin") {
         return res.status(403).json({ message: "Admins cannot promote to superadmin." });
       }
-      // Admin cannot change the role of a superadmin
       if (userToUpdate.role === "superadmin") {
         return res.status(403).json({ message: "Admins cannot modify a superadmin." });
       }
     }
 
-    // Superadmins can update any role, except their own role
     if (currentUserRole === "superadmin") {
-      // Superadmins cannot update their own role to superadmin
       if (id === currentUserId.toString()) {
         return res.status(403).json({ message: "Superadmins cannot change their own role." });
       }
     }
 
-    // Perform the update
+  
     const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    return res.status(200).json({ message: "User updated successfully", updatedUser });
+    return res.status(200).json({ message: "User updated successfully",updatedUser: updatedUser.username});
 
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
 
-//delete user
 const deleteUser = async (req, res) => {
   try {
-    const deleteU = await User.findByIdAndDelete(req.params.id);
-    if (!deleteU) {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) {
       return res.status(404).json({ message: "User not found" });
     }
-    return res.status(200).json({ message: "User deleted!" });
+    return res.status(200).json({ message: "User deleted!",deletedUser:deletedUser.username });
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }

@@ -14,7 +14,6 @@ const app = express();
 app.use(express.json());
 app.use(morgan('combined'));
 
-// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(error => console.error(error));
@@ -50,5 +49,4 @@ const checkSuperadmin = async () => {
   }
 };
 
-// Perform the check and start the server
 checkSuperadmin();

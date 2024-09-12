@@ -6,8 +6,15 @@ const modulePermissionSchema = new mongoose.Schema({
     type: String,  
     default: uuidv4, 
   },
-  moduleId: { type: mongoose.Schema.Types.String, ref: 'Module', required: true },
-  permissions: [{ type: mongoose.Schema.Types.String, ref: 'Permission' }]
+  moduleId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Module', 
+    required: true 
+  },
+  permissions: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Permission' 
+  }]
 });
 
-module.exports = mongoose.model('ModulePermission', modulePermissionSchema);
+module.exports = mongoose.model('modulePermission', modulePermissionSchema);

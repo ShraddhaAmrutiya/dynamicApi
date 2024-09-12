@@ -4,7 +4,6 @@ const User = require('./Model/UserSchema');
 
 const { MONGO_URI } = process.env;
 
-// Connect to MongoDB
 mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(error => {
@@ -12,7 +11,6 @@ mongoose.connect(MONGO_URI)
     process.exit(1);
   });
 
-// Get command-line arguments
 const [username, password] = process.argv.slice(2);
 
 if (!username || !password) {
@@ -20,10 +18,10 @@ if (!username || !password) {
   process.exit(1);
 }
 
-// Create a new superadmin user
+
 const createSuperAdmin = async () => {
   try {
-    // Check if a superadmin already exists
+
     const existingSuperAdmin = await User.findOne({ role: 'superadmin' });
 
     if (existingSuperAdmin) {
@@ -31,7 +29,7 @@ const createSuperAdmin = async () => {
       process.exit(0);
     }
 
-    // Create a new superadmin user
+  
     const superAdmin = new User({ username, password, role: 'superadmin' });
     await superAdmin.save();
 

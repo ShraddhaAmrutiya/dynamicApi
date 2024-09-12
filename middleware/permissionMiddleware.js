@@ -8,22 +8,11 @@ const rolePermissions = require('../rolePermissions');
 const permissionMiddleware = (requiredPermission) => async (req, res, next) => {
     try {
       const userRole = req.user.role; 
-      console.log('User Role:', userRole); 
-  
-      ///// Check if the user is a superadmin
-      //////if you assign all permissions to superadmin in rolePermission you can skip this 
-      ///// incase you forgot assign the permission/ for double check  => you can use this 
       
-      // if (userRole === 'superadmin') {
-      //   return next(); // Superadmin has access to everything
-      // }
-  
-      // Role-based permissions check
       if (rolePermissions[userRole] && rolePermissions[userRole].includes(requiredPermission)) {
         return next(); 
       }
   
-      // Group-based permissions check
       const user = req.user;
       const groupPermissions = await GroupPermission.find({ groupId: { $in: user.groups } });
       const userPermissions = groupPermissions.flatMap(group => group.permissions);
