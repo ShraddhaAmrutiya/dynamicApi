@@ -1,5 +1,7 @@
 const User = require("../Model/UserSchema");
 const Group = require("../Model/GroupSchema");
+
+
 const addUserToGroup = async (req, res) => {
   const { userId } = req.params;
   const { groupIds } = req.body;
@@ -17,39 +19,29 @@ const addUserToGroup = async (req, res) => {
     }
 
     const groups = await Group.find({ _id: { $in: groupIds } });
-
-    // Use forEach to populate a Set
-    const groupIdsInDb = new Set();
-    groups.forEach(group => groupIdsInDb.add(group._id.toString()));
-
-    const newGroupIds = groupIds.filter(
-      (groupId) =>
-        !user.groups.includes(groupId) && groupIdsInDb.has(groupId)
+    const groupIdsInDb = groups.map(group => group._id.toString());
+    
+    const newGroupIds = groupIds.filter(groupId => 
+      !user.groups.includes(groupId) && groupIdsInDb.includes(groupId)
     );
 
     if (newGroupIds.length > 0) {
-      user.groups.push(...newGroupIds);
+      user.groups = [...user.groups, ...newGroupIds]; // Concatenate new group IDs
       await user.save();
-      return res
-        .status(200)
-        .json({
-          message: "User added to groups successfully",
-          addedGroups: newGroupIds,
-        });
+      return res.status(200).json({
+        message: "User added to groups successfully",
+        addedGroups: newGroupIds,
+      });
     } else {
-      return res
-        .status(400)
-        .json({
-          message:
-            "User is already in the specified groups or some groups are invalid",
-        });
+      return res.status(400).json({
+        message: "User is already in the specified groups or some groups are invalid",
+      });
     }
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Server error", error: error.message });
+    return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 
 const removeUserFromGroup = async (req, res) => {

@@ -109,7 +109,7 @@ const listPermissionsForModule = async (req, res) => {
 
   try {
     const modulePermissions = await ModulePermission.findOne({ moduleId })
-      .populate('permissions')  // Populate the `permissions` field
+      .populate('permissions')  
       .exec();
 
     if (!modulePermissions) return res.status(404).json({ message: 'Permissions not found for this module' });

@@ -1,6 +1,6 @@
 const GroupPermission = require('../Model/groupPermission');
 const Group = require('../Model/GroupSchema');
-const modulePermission = require('../Model/modulePermission');
+const modulePermission = require('../Model/ModuleSchema');
 
 
 

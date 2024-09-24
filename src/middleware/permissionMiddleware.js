@@ -15,8 +15,9 @@ const permissionMiddleware = (requiredPermission) => async (req, res, next) => {
   
       const user = req.user;
       const groupPermissions = await GroupPermission.find({ groupId: { $in: user.groups } });
-      const userPermissions = groupPermissions.flatMap(group => group.permissions);
-  
+      const userPermissions = Array.from(
+        groupPermissions.reduce((acc, group) => acc.concat(group.permissions), [])
+      );
       if (userPermissions.includes(requiredPermission)) {
         return next(); 
       }

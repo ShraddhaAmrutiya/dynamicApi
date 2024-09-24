@@ -2,14 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const authRoutes = require('./routes/authRoutes');
-const moduleRoutes = require('./routes/moduleRoutes');
-const permissionRoutes = require('./routes/permissionRoutes');
-const groupRoutes = require('./routes/groupRoutes');
-const groupPermissionRoutes = require('./routes/groupPermissionRoutes');
-const userRoutes = require('./routes/userRoutes');
-const User = require('./Model/UserSchema'); 
-const ModulePermissionRout=require('./routes/modulePermission')
+const authRoutes = require('./src/routes/authRoutes');
+const moduleRoutes = require('./src/routes/moduleRoutes');
+const permissionRoutes = require('./src/routes/permissionRoutes');
+const groupRoutes = require('./src/routes/groupRoutes');
+const groupPermissionRoutes = require('./src/routes/groupPermissionRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const User = require('./src/Model/UserSchema'); 
+const ModulePermissionRout=require('./src/routes/modulePermission')
 const app = express();
 app.use(express.json());
 app.use(morgan('combined'));
